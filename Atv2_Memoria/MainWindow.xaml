@@ -1,0 +1,50 @@
+﻿<Window x:Class="Atv2_Memoria.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Atv2_Memoria"
+        mc:Ignorable="d"
+        Title="Programa ATV2 - Modificar dados de memória de outro processo" Height="350" Width="1200"
+        WindowStartupLocation="Manual">
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="20"
+                   FontSize="30">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Background" Value="DarkRed"/>
+                    <Setter Property="Text" Value="Execute o notepad"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=TargetOn}" Value="True">
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="Background" Value="DarkGreen"/>
+                            <Setter Property="Text" Value="Notepad executando !!"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+        <TextBlock Grid.Row="1" Margin="10 0" FontSize="20">
+            <Run>Endereço da memoria:</Run>
+            <Run FontFamily="Consolas" Text="{Binding Path=TextAddress, Mode=OneWay}"></Run>
+        </TextBlock>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10 0" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <TextBlock Text="Quantidade de bytes" Margin="5 0"/>
+            <TextBox Width="50" Text="{Binding Path=BufferSize, Mode=TwoWay}"></TextBox>
+        </StackPanel>
+        <TextBox Grid.Row="1" TextWrapping="Wrap" Margin="10 30 10 10" Name="UIText"
+                 FontFamily="Consolas" 
+                 Text="{Binding Path=Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 PreviewKeyDown="TextBoxKeyDown"
+                 />
+    </Grid>
+</Window>
